@@ -15,7 +15,8 @@ import {useNavigate} from "react-router-dom";
 // import Badge from "@mui/icons-material/Badge"
 import { Badge } from "@mui/material";
 
-const server_url = "http://localhost:8000";
+// const server_url = "http://localhost:8000";
+const server_url = server;
 
 const peerConfigConnections = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],

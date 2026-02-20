@@ -1,8 +1,7 @@
-// src/environment.js
+let IS_PROD = true;
 
-const IS_PROD = false;
+const server = IS_PROD
+  ? "https://https://apna-video-call-backend-ejep.onrender.com"
+  : "http://localhost:8000";
 
-const server = IS_PROD ? 
-    "https://your-deployed-api.com" : 
-    "http://localhost:8000"; 
 export default server;
