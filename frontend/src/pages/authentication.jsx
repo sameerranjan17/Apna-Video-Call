@@ -3,9 +3,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel"
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -19,14 +19,16 @@ const defaultTheme = createTheme();
 
 export default function Authentication() {
   const [bgImage, setBgImage] = React.useState("");
-//   const [username, setUsername] = React.useState("");
-// Update your username state to check localStorage on load
-const [username, setUsername] = React.useState(localStorage.getItem('rememberedUsername') || "");
+  //   const [username, setUsername] = React.useState("");
+  // Update your username state to check localStorage on load
+  const [username, setUsername] = React.useState(
+    localStorage.getItem("rememberedUsername") || "",
+  );
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const [error, setError] = React.useState("");
   const [message, setMessage] = React.useState("");
-  
+
   const [formState, setFormState] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
@@ -64,37 +66,35 @@ const [username, setUsername] = React.useState(localStorage.getItem('rememberedU
     setOpen(false);
   };
 
-    let handleAuth = async () => {
-        try {
-            if (formState === 0) {
+  let handleAuth = async () => {
+    try {
+      if (formState === 0) {
+        let result = await handleLogin(username, password);
 
-                let result = await handleLogin(username, password)
-
-                if (rememberMe) {
-                localStorage.setItem('rememberedUsername', username);
-                }
-            }else if(formState === 1) {
-               let result = await handleLogin(name, username, password);
-               console.log(result);
-               setUsername("");
-                setMessage(result);
-              //  setMessage("Registration Successful!"); // Set the message for the Snackbar
-              //  setName("");
-               setOpen(true);
-               setError("")
-               setFormState(0); // Switch to Login tab after success
-               setPassword("");
-         
-            }
-        } catch (err) {
-          console.log(err)
-          let message = (err.response.data.message);  //i moved it before return
-          setError(message);
-          return;
-
-            
+        if (rememberMe) {
+          localStorage.setItem("rememberedUsername", username);
         }
+      } else if (formState === 1) {
+        let result = await handleRegister(name, username, password);
+        console.log(result);
+        setUsername("");
+        setMessage(result);
+        //  setMessage("Registration Successful!"); // Set the message for the Snackbar
+        //  setName("");
+        setOpen(true);
+        setError("");
+        setFormState(0); // Switch to Login tab after success
+        setPassword("");
+      }
+    } catch (err) {
+      console.log(err);
+      // Use ?. to safely check if response and data exist
+      let errorMessage =
+        err.response?.data?.message ||
+        "Something went wrong. Please check your connection.";
+      setError(errorMessage);
     }
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -192,24 +192,22 @@ const [username, setUsername] = React.useState(localStorage.getItem('rememberedU
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <p style={{color: "red"}}>{error}</p>
+              <p style={{ color: "red" }}>{error}</p>
               {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
 
               {/* NEW: Remember Me Checkbox */}
-{formState === 0 && (
-    <FormControlLabel
-        control={
-            <Checkbox 
-                checked={rememberMe} 
-                onChange={(e) => setRememberMe(e.target.checked)} 
-                color="primary" 
-            />
-        }
-        label="Remember me"
-    />
-)}
-
-              
+              {formState === 0 && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      color="primary"
+                    />
+                  }
+                  label="Remember me"
+                />
+              )}
 
               <Button
                 type="button"

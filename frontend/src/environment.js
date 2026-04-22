@@ -1,7 +1,7 @@
-let IS_PROD = true;
+let IS_PROD = false;
 
 const server = IS_PROD
-  ? "https://https://apna-video-call-backend-ejep.onrender.com"
+  ? "https://apna-video-call-backend-ejep.onrender.com"
   : "http://localhost:8000";
 
 export default server;

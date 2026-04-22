@@ -16,7 +16,8 @@ import {useNavigate} from "react-router-dom";
 import { Badge } from "@mui/material";
 
 // const server_url = "http://localhost:8000";
-const server_url = server;
+
+const server_url = import.meta.env.VITE_BACKEND_URL || "https://apna-video-call-frontend-p8z6.onrender.com";
 
 const peerConfigConnections = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
