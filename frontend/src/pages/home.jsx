@@ -24,7 +24,7 @@ function HomeComponent() {
       <div className="navBar">
         <div style={{ display: "inline-flex", alignItems: "end" }}></div>
 
-        <h2>Apna Video Call</h2>
+        <h2>Zynk</h2>
     
 
       <div style={{ display: "flex", alignItems: "center" }}></div>
